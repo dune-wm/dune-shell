@@ -1,8 +1,8 @@
 import QtQuick
 import Quickshell
 
-// Each monitor gets its two bottom corners: the desk it shows and the focused window
-// on the left, the time on the right.
+// Each monitor gets its two bottom corners: its desks and dock on the left, every
+// widget on the right.
 ShellRoot {
     Variants {
         model: Quickshell.screens
@@ -10,21 +10,23 @@ ShellRoot {
         delegate: Component {
             Scope {
                 id: monitor
-                required property var modelData
+                required property ShellScreen modelData
 
                 Corner {
                     screen: monitor.modelData
                     side: "left"
 
                     Pill {
-                        Label {
-                            text: "󰍹 " + Dune.deskOf(monitor.modelData.name)
-                            color: Theme.accent
+                        Desks {
+                            screen: monitor.modelData
                         }
-                        Label {
-                            visible: Dune.focusedTitle !== ""
-                            text: Dune.focusedTitle
-                            width: Math.min(implicitWidth, 420)
+                        // The dock of this monitor: dune finds it by waybar's variable.
+                        ScriptWidget {
+                            exec: "WAYBAR_OUTPUT_NAME=" + monitor.modelData.name + " dune dock watch"
+                            watch: true
+                            format: "󱂩 {}"
+                            colors: ({ empty: Theme.muted })
+                            leftClick: "WAYBAR_OUTPUT_NAME=" + monitor.modelData.name + " dune dock show"
                         }
                     }
                 }
@@ -32,19 +34,14 @@ ShellRoot {
                 Corner {
                     screen: monitor.modelData
                     side: "right"
+                    held: widgets.menuOpen
+                    reserve: Theme.hintSpace
 
-                    Pill {
-                        Label {
-                            text: Qt.formatDateTime(clock.date, "ddd d MMM  HH:mm")
-                        }
+                    Widgets {
+                        id: widgets
                     }
                 }
             }
         }
-    }
-
-    SystemClock {
-        id: clock
-        precision: SystemClock.Minutes
     }
 }
