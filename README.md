@@ -40,5 +40,7 @@ The keys of the minimap (`minimap`, Mod+a) and the rest of dune's are in dune's 
 - `Dune.qml`: dune's state, from `dune events`.
 - `Theme.qml`: colors, sizes and delays, from the settings file.
 - `Widgets.qml`, `Calendar.qml`, `Separator.qml`: the widgets of the right corners.
+- `Tasks.qml`, `Log.qml`: taskwarrior and the daily log, each used from a popup over
+  the bar (`Field.qml` is their text field).
 - `Minimap.qml`: the strip of tiles of a monitor, scaled down.
 - `Pill.qml`, `Label.qml`: the pieces widgets are made of.

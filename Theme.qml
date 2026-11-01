@@ -60,6 +60,8 @@ Singleton {
     readonly property int pillHeight: pick("pillHeight", 48)
     // Room above the right pill for the tooltip of the widget under the cursor.
     readonly property int hintSpace: pick("hintSpace", 200)
+    // How wide that tooltip can be, even past the pill's width.
+    readonly property int hintWidth: pick("hintWidth", 640)
     // The monitor whose right widgets are split between its top and bottom corners;
     // the others keep them all at the bottom.
     readonly property string mainOutput: pick("mainOutput", "HDMI-A-1")
@@ -80,6 +82,14 @@ Singleton {
     readonly property var minimapEdges: pick("minimapEdges", {
         "HDMI-A-2": "bottom" // the Asus MB16AMT
     })
+
+    // Taskwarrior's data dir per mode, in the order the task widget switches them.
+    readonly property var taskModes: pick("taskModes", {
+        "personal": "~/.task",
+        "work": "~/.task-work"
+    })
+    // Where the daily log goes, a file per day.
+    readonly property string logDir: pick("logDir", "~/.local/share/dune/log")
 
     // The strip on the bottom edge that wakes a corner up.
     readonly property int triggerWidth: pick("triggerWidth", 200)

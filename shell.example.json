@@ -16,6 +16,7 @@
     "itemSpacing": 14,
     "pillHeight": 48,
     "hintSpace": 200,
+    "hintWidth": 640,
 
     "mainOutput": "HDMI-A-1",
 
@@ -25,6 +26,9 @@
     "minimapHideDelay": 900,
     "minimapTriggerWidth": 400,
     "thumbnailRefresh": 1000,
+
+    "taskModes": { "personal": "~/.task", "work": "~/.task-work" },
+    "logDir": "~/.local/share/dune/log",
 
     "triggerWidth": 200,
     "triggerHeight": 2,

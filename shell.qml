@@ -42,6 +42,7 @@ ShellRoot {
                     side: "right"
                     held: widgets.menuOpen
                     reserve: Theme.hintSpace
+                    reserveWidth: Theme.hintWidth + 2 * Theme.margin
 
                     Widgets {
                         id: widgets
@@ -59,6 +60,7 @@ ShellRoot {
                         side: "right"
                         held: statusWidgets.menuOpen
                         reserve: Theme.hintSpace
+                        reserveWidth: Theme.hintWidth + 2 * Theme.margin
 
                         Widgets {
                             id: statusWidgets

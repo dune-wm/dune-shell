@@ -25,6 +25,9 @@ PanelWindow {
     // open window never changes size under the cursor: dune would move the surface
     // before it is redrawn, the cursor would fall off the widget and the corner flicker.
     property int reserve: 0
+    // The same for the width: the open window is at least this wide, so a tooltip wider
+    // than the pill fits without it growing.
+    property int reserveWidth: 0
     // How long it stays open after the cursor leaves it.
     property int hideDelay: Theme.hideDelay
     // How wide the strip on the edge that wakes it up is.
@@ -93,7 +96,7 @@ PanelWindow {
     WlrLayershell.layer: WlrLayer.Top
     WlrLayershell.keyboardFocus: WlrKeyboardFocus.None
 
-    implicitWidth: open ? Math.max(holder.implicitWidth + 2 * Theme.margin, triggerWidth) : triggerWidth
+    implicitWidth: open ? Math.max(holder.implicitWidth + 2 * Theme.margin, triggerWidth, reserveWidth) : triggerWidth
     implicitHeight: open ? contentHeight + 2 * Theme.margin + reserve : Theme.triggerHeight
 
     // Open, only what is drawn takes the cursor; the room kept above it lets it through.

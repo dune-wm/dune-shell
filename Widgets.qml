@@ -11,8 +11,8 @@ Column {
     property string part: "all"
     property string edge: "bottom"
 
-    // A tray menu or the calendar is open: the corner has to stay.
-    readonly property bool menuOpen: tray.menuOpen || calendar.menuOpen
+    // A tray menu, the calendar, the tasks or the log are open: the corner has to stay.
+    readonly property bool menuOpen: tray.menuOpen || calendar.menuOpen || tasks.menuOpen || dailyLog.menuOpen
     readonly property string hint: {
         const items = [...status.children, ...controls.children];
         for (let i = 0; i < items.length; i++) {
@@ -42,10 +42,11 @@ Column {
         Label {
             id: hintLabel
             anchors.centerIn: parent
-            // No wider than the pill and no taller than the room kept for it, so the
-            // corner does not change size (see Corner.reserve).
+            // No wider than the pill (or `hintWidth`, if that is wider) and no taller than
+            // the room kept for it, so the corner does not change size (see Corner.reserve
+            // and Corner.reserveWidth).
             width: Math.min(implicitWidth, parent.maxWidth - 2 * Theme.padding)
-            color: Theme.muted
+            color: Theme.text
             elide: Text.ElideNone
             wrapMode: Text.Wrap
             maximumLineCount: 9
@@ -55,7 +56,7 @@ Column {
     Hint {
         visible: widgets.edge !== "top" && widgets.hint !== ""
         text: widgets.hint
-        maxWidth: pill.width
+        maxWidth: Math.max(pill.width, Theme.hintWidth)
     }
 
     Pill {
@@ -79,13 +80,13 @@ Column {
                 scrollUp: "dune recording audio"
                 scrollDown: "dune recording audio"
             }
-            ScriptWidget {
-                exec: "php ~/data-disk/my-projects/waytask/task"
-                interval: 60000
-                colors: ({ error: Theme.alert })
-                leftClick: "foot --app-id=waybar-float -e php ~/data-disk/my-projects/waytask/task shell"
-                middleClick: "foot --app-id=waybar-float -e php ~/data-disk/my-projects/waytask/task done"
-                rightClick: "php ~/data-disk/my-projects/waytask/task toggle"
+            Tasks {
+                id: tasks
+                edge: widgets.edge
+            }
+            Log {
+                id: dailyLog
+                edge: widgets.edge
             }
             ScriptWidget {
                 exec: "~/commands/vpn-check"
@@ -196,6 +197,6 @@ Column {
     Hint {
         visible: widgets.edge === "top" && widgets.hint !== ""
         text: widgets.hint
-        maxWidth: pill.width
+        maxWidth: Math.max(pill.width, Theme.hintWidth)
     }
 }
