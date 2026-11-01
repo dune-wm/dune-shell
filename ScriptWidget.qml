@@ -17,12 +17,15 @@ Widget {
     property var icons: ({})
     // Text color per class.
     property var colors: ({})
+    // Taken out of the text the module writes (a regular expression), when it says more
+    // than the corner shows.
+    property var drop: null
 
     property string output: ""
     property string alt: ""
     property string kind: ""
 
-    text: format.replace("{}", output).replace("{icon}", icons[alt] ?? "").trim()
+    text: format.replace("{}", drop ? output.replace(drop, "") : output).replace("{icon}", icons[alt] ?? "").trim()
     color: colors[kind] ?? Theme.text
     visible: text !== ""
 
