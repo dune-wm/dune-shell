@@ -160,7 +160,7 @@ Rectangle {
         color: "transparent"
         border.color: Theme.text
         border.width: 1
-        radius: 6
+        radius: 3
     }
 
     WheelHandler {
