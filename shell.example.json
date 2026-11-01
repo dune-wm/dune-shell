@@ -1,0 +1,35 @@
+{
+    "background": "#1E293B",
+    "surface": "#334155",
+    "text": "#E2E8F0",
+    "muted": "#64748B",
+    "accent": "#38BDF8",
+    "alert": "#EF4444",
+    "warn": "#FBBF24",
+    "inverse": "#0F172A",
+
+    "font": "RobotoMono Nerd Font",
+    "fontSize": 13,
+    "radius": 8,
+    "padding": 10,
+    "margin": 6,
+    "itemSpacing": 14,
+    "pillHeight": 48,
+    "hintSpace": 200,
+
+    "mainOutput": "HDMI-A-1",
+
+    "minimapEdges": { "HDMI-A-2": "bottom" },
+    "minimapMinWidth": 240,
+    "minimapHeight": 180,
+    "minimapHideDelay": 900,
+    "minimapTriggerWidth": 400,
+    "thumbnailRefresh": 1000,
+
+    "triggerWidth": 200,
+    "triggerHeight": 2,
+    "showDelay": 120,
+    "hideDelay": 300,
+    "openDuration": 160,
+    "closeDuration": 180
+}
