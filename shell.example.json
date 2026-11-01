@@ -35,5 +35,6 @@
     "showDelay": 120,
     "hideDelay": 300,
     "openDuration": 160,
-    "closeDuration": 180
+    "closeDuration": 180,
+    "volumePeek": 1500
 }

@@ -38,6 +38,7 @@ ShellRoot {
                 }
 
                 Corner {
+                    id: controlsCorner
                     screen: monitor.modelData
                     side: "right"
                     held: widgets.menuOpen
@@ -47,6 +48,11 @@ ShellRoot {
                     Widgets {
                         id: widgets
                         part: monitor.main ? "controls" : "all"
+                        // On the monitor in use only.
+                        onVolumeAdjusted: {
+                            if (Dune.activeOutput === monitor.modelData.name)
+                                controlsCorner.peek(Theme.volumePeek);
+                        }
                     }
                 }
 

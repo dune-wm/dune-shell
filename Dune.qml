@@ -23,6 +23,15 @@ Singleton {
     // dune's `minimap` key (Mod+a): show or hide the minimap of that monitor.
     signal minimapAsked(string output)
 
+    // The monitor whose strip holds the focused window; the main one when none does.
+    readonly property string activeOutput: {
+        for (const output in strips) {
+            if ((strips[output].tiles ?? []).some(t => t.tile === focused))
+                return output;
+        }
+        return Theme.mainOutput;
+    }
+
     function goTo(tile) {
         Quickshell.execDetached(["dune", "goto", String(tile)]);
     }

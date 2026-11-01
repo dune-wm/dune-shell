@@ -26,6 +26,9 @@ Column {
 
     spacing: Theme.margin
 
+    // The volume changed: the corner with the volume widget shows for a moment.
+    signal volumeAdjusted
+
     // Inline components do not see this file's ids: what it shows comes in.
     component Hint: Rectangle {
         property alias text: hintLabel.text
@@ -134,7 +137,9 @@ Column {
 
             NetworkWidget {}
             BluetoothWidget {}
-            Audio {}
+            Audio {
+                onAdjusted: widgets.volumeAdjusted()
+            }
 
             Separator {}
 

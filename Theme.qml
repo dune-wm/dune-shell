@@ -101,4 +101,6 @@ Singleton {
     // How long a corner takes to come in and to go back into the edge.
     readonly property int openDuration: pick("openDuration", 160)
     readonly property int closeDuration: pick("closeDuration", 180)
+    // How long the corner with the volume shows after the volume changes.
+    readonly property int volumePeek: pick("volumePeek", 1500)
 }

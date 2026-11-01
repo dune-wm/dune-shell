@@ -74,6 +74,29 @@ PanelWindow {
         }
     }
 
+    // Opened by something that changed (the volume), not the cursor: it stays `duration`
+    // ms after the last call, longer if the cursor comes onto it.
+    function peek(duration) {
+        showTimer.stop();
+        hideTimer.stop();
+        if (!open) {
+            open = true;
+        } else if (closeAnimation.running) {
+            closeAnimation.stop();
+            openAnimation.start();
+        }
+        peekTimer.interval = duration;
+        peekTimer.restart();
+    }
+
+    Timer {
+        id: peekTimer
+        onTriggered: {
+            if (!hover.hovered && !corner.held)
+                corner.dismiss();
+        }
+    }
+
     onOpenChanged: {
         if (open) {
             closeAnimation.stop();
