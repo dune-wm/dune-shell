@@ -4,6 +4,9 @@ The widgets of [dune](https://github.com/dune-wm/dune), made with [Quickshell](h
 take no space: each one is hidden in a corner of a monitor until the cursor rests on
 the edge near it, and goes back once the cursor leaves.
 
+It all runs on this computer, from local commands and dune's events; the only widget that
+asks the network is the updates count (`pamac checkupdates`, the mirrors).
+
 - Bottom left: the dock of the monitor (`󱂩 3`, the entries it holds), then its desks.
 - Bottom right: everything waybar showed: network, bluetooth, audio, the dictation
   language (`󰍬 EN`: a click opens English, Español, Italiano, the one picked marked
