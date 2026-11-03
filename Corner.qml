@@ -4,8 +4,8 @@ import Quickshell.Wayland
 
 // A corner of a monitor (or the middle of its top or bottom edge). While hidden it is a
 // thin transparent strip on the edge; when the cursor rests there it grows into its
-// content, and shrinks back once the cursor has left it. It reserves no space and never
-// takes the keyboard.
+// content, and shrinks back once the cursor has left it. It reserves no space and takes
+// the keyboard only when `takesKeyboard` and opened by its key.
 PanelWindow {
     id: corner
 
@@ -19,6 +19,10 @@ PanelWindow {
     default property alias content: holder.data
 
     property bool open: false
+    // Opened by its key (`toggle`), not the cursor: with `takesKeyboard` it has the keyboard
+    // until it closes.
+    property bool keyed: false
+    property bool takesKeyboard: false
     // Keeps the corner open while set (a menu of it is open), whatever the cursor does.
     property bool held: false
     // Room kept above the pill for what comes and goes with the cursor (tooltips). The
@@ -49,6 +53,7 @@ PanelWindow {
     function dismiss(byClick) {
         showTimer.stop();
         hideTimer.stop();
+        keyed = false;
         if (byClick && open)
             picked = true;
         if (open && !closeAnimation.running) {
@@ -65,6 +70,7 @@ PanelWindow {
         } else {
             showTimer.stop();
             hideTimer.stop();
+            keyed = true;
             if (open) {
                 closeAnimation.stop();
                 openAnimation.start();
@@ -117,7 +123,7 @@ PanelWindow {
 
     WlrLayershell.namespace: "dune-shell-corner"
     WlrLayershell.layer: WlrLayer.Top
-    WlrLayershell.keyboardFocus: WlrKeyboardFocus.None
+    WlrLayershell.keyboardFocus: takesKeyboard && keyed && open ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.None
 
     implicitWidth: open ? Math.max(holder.implicitWidth + 2 * Theme.margin, triggerWidth, reserveWidth) : triggerWidth
     implicitHeight: open ? contentHeight + 2 * Theme.margin + reserve : Theme.triggerHeight
@@ -222,6 +228,7 @@ PanelWindow {
             script: {
                 corner.open = false;
                 corner.picked = false;
+                corner.keyed = false;
             }
         }
     }

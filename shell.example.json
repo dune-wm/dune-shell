@@ -27,6 +27,10 @@
     "minimapTriggerWidth": 400,
     "thumbnailRefresh": 1000,
 
+    "dockCellSize": 44,
+    "dockStagger": 30,
+    "dockTitleWidth": 360,
+
     "taskModes": { "personal": "~/.task", "work": "~/.task-work" },
     "logDir": "~/.local/share/dune/log",
 

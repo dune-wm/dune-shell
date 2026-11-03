@@ -32,6 +32,57 @@ Rectangle {
     border.color: Theme.surface
     border.width: 1
 
+    // Enter or Escape while it has the keyboard.
+    signal done()
+
+    // What it shows, for dune-voice ("next", "first", a window's name): written to
+    // $XDG_RUNTIME_DIR/dune-shell-minimap-OUTPUT.json while open, `{}` once closed.
+    readonly property string statePath: (Quickshell.env("XDG_RUNTIME_DIR") || "/tmp") + `/dune-shell-minimap-${output}.json`
+    readonly property string shown: visible ? JSON.stringify({
+        output: output,
+        focused: Dune.focused,
+        tiles: tiles.map(t => ({
+            tile: t.tile,
+            app: (Dune.windows[t.tile]?.app_id ?? "").split(".").pop(),
+            title: Dune.windows[t.tile]?.title ?? ""
+        }))
+    }) : "{}"
+    onShownChanged: Quickshell.execDetached(["sh", "-c", 'printf "%s" "$2" > "$1.tmp" && mv "$1.tmp" "$1"', "sh", statePath, shown])
+
+    function pick(index) {
+        if (tiles.length > 0)
+            Dune.goTo(tiles[Math.max(0, Math.min(tiles.length - 1, index))].tile);
+    }
+
+    // Opened by its key it has the keyboard: the arrows move along the strip.
+    focus: true
+    Keys.onPressed: event => {
+        switch (event.key) {
+        case Qt.Key_Left:
+        case Qt.Key_Up:
+            minimap.step(true);
+            break;
+        case Qt.Key_Right:
+        case Qt.Key_Down:
+            minimap.step(false);
+            break;
+        case Qt.Key_Home:
+            minimap.pick(0);
+            break;
+        case Qt.Key_End:
+            minimap.pick(minimap.tiles.length - 1);
+            break;
+        case Qt.Key_Return:
+        case Qt.Key_Enter:
+        case Qt.Key_Escape:
+            minimap.done();
+            break;
+        default:
+            return;
+        }
+        event.accepted = true;
+    }
+
     function step(up) {
         if (tiles.length === 0)
             return;

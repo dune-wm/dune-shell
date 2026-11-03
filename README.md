@@ -4,8 +4,10 @@ The widgets of [dune](../dune), made with [Quickshell](https://quickshell.org). 
 take no space: each one is hidden in a corner of a monitor until the cursor rests on
 the edge near it, and goes back once the cursor leaves.
 
-- Bottom left: the desks of the monitor and its dock.
-- Bottom right: everything waybar showed: network, bluetooth, audio, media,
+- Bottom left: the dock of the monitor (`󱂩 3`, the entries it holds), then its desks.
+- Bottom right: everything waybar showed: network, bluetooth, audio, the dictation
+  language (`󰍬 EN`: a click opens English, Español, Italiano, the one picked marked
+  while Hex switches; a right click English), media,
   notifications, clipboard, tray and the clock (a click opens the month). On the main
   monitor (`mainOutput`) the work and system status moves to the top right corner:
   recording, tasks, the daily log, VPN, CPU, memory, temperature and updates.
@@ -13,7 +15,28 @@ the edge near it, and goes back once the cursor leaves.
   tiles, to jump to any of them.
 
 The tooltip of the widget under the cursor shows next to its pill. The desks come from
-dune's ext-workspace, the minimap from `dune events`, dune's event stream.
+dune's ext-workspace, the minimap and the dock from `dune events`, dune's event stream.
+
+## Dock
+
+dune only publishes each monitor's dock (`dune events dock`) and does what is asked of
+it (`dune dock take TILE`, `dune dock pin TILE [OUTPUT]`); the shell draws it. A click on
+`󱂩` in the bottom left pill, or dune's `dock_show` key (Mod+Shift+e, `dune dock show`),
+unfolds it upward from above the pill: the scratchpad nearest the pill, then the
+entries, pinned ones (a dot) first. A column's cell has its number of tabs.
+
+The chosen cell (under the cursor, or moved to with the keys) shows its title beside it;
+a column with tabs, or the scratchpad with windows in it, fans them out there instead,
+a row each.
+
+- Click: take the entry out (a row of the fan: that tab, or that scratchpad window; the
+  scratchpad cell: its first window). Right click: pin or unpin the entry.
+- ↑/k ↓/j along the column (or the fan), →/l into the fan, ←/h out of it, Enter takes
+  out, p or Space pins or unpins, Escape closes.
+
+It closes on a pick, Escape, a click away from it or a window taking the focus. It takes
+the keyboard only while it is shown. `dockCellSize`, `dockStagger` and `dockTitleWidth`
+set its size, how staggered its unfold is and how wide its titles get.
 
 ## Tasks and log
 
@@ -63,7 +86,20 @@ defaults; `Theme.qml` says what each one does.
 cp shell.example.json ~/.config/dune/shell.json
 ```
 
-The keys of the minimap (`minimap`, Mod+a) and the rest of dune's are in dune's own
+### The look of dune's tiles
+
+A window, tiled like any other, sets the colors of the borders (the focused tile's and the
+rest's, or none) and of the background, the border width, the gap and the corner radius;
+the tab bars (their colors, height and title size); and the animations (on or off, how long
+a resize slides and a close shrinks, and how small a closing tile ends).
+Every change is written into dune's `dune.toml` with `dune config set` (comments kept) and
+applied at once, so it shows on the tiles while it is chosen. Open or close it with
+
+```sh
+qs -c dune ipc call settings toggle   # e.g. [spawn] "mod+comma" = "..." in dune.toml
+```
+
+The keys of the minimap (`minimap`, Mod+a), the dock (`dock_show`) and the rest of dune's are in dune's own
 `dune.toml`, `[keys]`. To start it with the session, add
 `qs -c dune` to dune's autostart.
 
@@ -76,10 +112,14 @@ The keys of the minimap (`minimap`, Mod+a) and the rest of dune's are in dune's 
 - `Widgets.qml`: the widgets of the right corners, in waybar's order, and the tooltip.
 - `Widget.qml`, `ScriptWidget.qml`: text that runs commands on clicks; one that runs a
   waybar custom module script.
+- `Dictation.qml`: Hex's dictation language, with its list of languages.
 - `Calendar.qml`, `Tasks.qml`, `Log.qml`: the clock, taskwarrior and the daily log,
   each with a popup (`Field.qml` is the popups' text field).
 - `NetworkWidget.qml`, `BluetoothWidget.qml`, `Audio.qml`, `Tray.qml`, `Stats.qml`:
   the system widgets and what they read.
 - `Desks.qml`: the desks of a monitor.
+- `Dock.qml`: the dock of a monitor, unfolding from the bottom left corner.
 - `Minimap.qml`: the strip of tiles of a monitor, scaled down.
+- `Settings.qml`: the window for the look of dune's tiles (`ColorPicker.qml`,
+  `NumberSlider.qml` are its pieces).
 - `Pill.qml`, `Label.qml`, `Separator.qml`: the pieces widgets are made of.

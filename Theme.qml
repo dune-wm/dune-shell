@@ -83,6 +83,13 @@ Singleton {
         "HDMI-A-2": "bottom" // the Asus MB16AMT
     })
 
+    // The dock, unfolding upward from above the bottom left pill: how big a cell is, how
+    // far apart cells start unfolding (ms, less when there are many) and how wide the
+    // title beside the chosen one (or its fan of tabs) gets.
+    readonly property int dockCellSize: pick("dockCellSize", 44)
+    readonly property int dockStagger: pick("dockStagger", 30)
+    readonly property int dockTitleWidth: pick("dockTitleWidth", 360)
+
     // Taskwarrior's data dir per mode, in the order the task widget switches them.
     readonly property var taskModes: pick("taskModes", {
         "personal": "~/.task",

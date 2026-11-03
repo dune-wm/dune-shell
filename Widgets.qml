@@ -11,8 +11,9 @@ Column {
     property string part: "all"
     property string edge: "bottom"
 
-    // A tray menu, the calendar, the tasks or the log are open: the corner has to stay.
-    readonly property bool menuOpen: tray.menuOpen || calendar.menuOpen || tasks.menuOpen || dailyLog.menuOpen
+    // A tray menu, the calendar, the dictation languages, the tasks or the log are open:
+    // the corner has to stay.
+    readonly property bool menuOpen: tray.menuOpen || calendar.menuOpen || dictation.menuOpen || tasks.menuOpen || dailyLog.menuOpen
     readonly property string hint: {
         const items = [...status.children, ...controls.children];
         for (let i = 0; i < items.length; i++) {
@@ -139,6 +140,9 @@ Column {
             BluetoothWidget {}
             Audio {
                 onAdjusted: widgets.volumeAdjusted()
+            }
+            Dictation {
+                id: dictation
             }
 
             Separator {}
