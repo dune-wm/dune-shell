@@ -1,6 +1,6 @@
 # dune-shell
 
-The widgets of [dune](../dune), made with [Quickshell](https://quickshell.org). They
+The widgets of [dune](https://github.com/dune-wm/dune), made with [Quickshell](https://quickshell.org). They
 take no space: each one is hidden in a corner of a monitor until the cursor rests on
 the edge near it, and goes back once the cursor leaves.
 
@@ -69,7 +69,8 @@ In both popups Tab goes from field to field and Escape or a click away closes th
 ## Run
 
 ```sh
-ln -s ~/data-disk/my-projects/dune-shell ~/.config/quickshell/dune
+git clone https://github.com/dune-wm/dune-shell
+ln -s "$PWD/dune-shell" ~/.config/quickshell/dune
 qs -c dune
 ```
 
