@@ -313,6 +313,7 @@ FloatingWindow {
             NumberRow { key: "border_width"; name: "Border width"; from: 0; to: 16 }
             NumberRow { key: "gap"; name: "Gap"; from: 0; to: 64 }
             NumberRow { key: "corner_radius"; name: "Corner radius"; from: 0; to: 64 }
+            ToggleRow { key: "fill_on_close"; name: "Fill space on close" }
 
             Heading { text: "Tabs" }
             ColorRow { key: "tabs.background"; name: "Bar" }

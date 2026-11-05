@@ -20,6 +20,12 @@ asks the network is the updates count (`pamac checkupdates`, the mirrors).
 The tooltip of the widget under the cursor shows next to its pill. The desks come from
 dune's ext-workspace, the minimap and the dock from `dune events`, dune's event stream.
 
+## Hints
+
+`dune-a11y hints` (saying "hints") writes a word on each clickable thing around the pointer
+to `$XDG_RUNTIME_DIR/dune-hints.json`; `Hints.qml` draws them over everything, framed, for
+15 s. It takes no keyboard and clicks go through it. Saying a word clicks that thing.
+
 ## Dock
 
 dune only publishes each monitor's dock (`dune events dock`) and does what is asked of
@@ -94,6 +100,7 @@ cp shell.example.json ~/.config/dune/shell.json
 
 A window, tiled like any other, sets the colors of the borders (the focused tile's and the
 rest's, or none) and of the background, the border width, the gap and the corner radius;
+whether the columns left fill the space of a column that closes;
 the tab bars (their colors, height and title size); and the animations (on or off, how long
 a resize slides and a close shrinks, and how small a closing tile ends).
 Every change is written into dune's `dune.toml` with `dune config set` (comments kept) and
@@ -124,6 +131,7 @@ The keys of the minimap (`minimap`, Mod+a), the dock (`dock_show`) and the rest 
 - `Desks.qml`: the desks of a monitor.
 - `Dock.qml`: the dock of a monitor, unfolding from the bottom left corner.
 - `Minimap.qml`: the strip of tiles of a monitor, scaled down.
+- `Hints.qml`: the spoken labels of dune-a11y's hints over a monitor.
 - `Settings.qml`: the window for the look of dune's tiles (`ColorPicker.qml`,
   `NumberSlider.qml` are its pieces).
 - `Pill.qml`, `Label.qml`, `Separator.qml`: the pieces widgets are made of.

@@ -6,8 +6,8 @@ import Quickshell.Io
 
 // Each monitor gets its two bottom corners, its dock and desks on the left and every
 // widget on the right (on the main one, split with its top right corner, see
-// Theme.mainOutput), and a minimap of its strip in the middle of the top edge (or of
-// the bottom one, see Theme.minimapEdges).
+// Theme.mainOutput), a minimap of its strip in the middle of the top edge (or of the
+// bottom one, see Theme.minimapEdges), and the spoken labels of dune-a11y's hints.
 ShellRoot {
     // The look of dune's tiles, set by hand: `qs -c dune ipc call settings toggle`.
     Settings {
@@ -52,6 +52,10 @@ ShellRoot {
                             screen: monitor.modelData
                         }
                     }
+                }
+
+                Hints {
+                    screen: monitor.modelData
                 }
 
                 Dock {
